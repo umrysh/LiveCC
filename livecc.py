@@ -84,7 +84,9 @@ def save_speech(data, p):
 
 def stt_google_wav(filename):
     #Convert to flac
-    os.system(FLAC_CONV+ filename+'.wav > /dev/null 2>&1')
+    os.system(FLAC_CONV+ filename+'.wav > /dev/null 2>&1') # Linux
+    #os.system(FLAC_CONV+ filename+'.wav > nul 2>&1') # Windows
+
     f = open(filename+'.flac','rb')
     flac_cont = f.read()
     f.close()
@@ -114,13 +116,29 @@ chunk = 1024
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 16000
-THRESHOLD = 380 #The threshold intensity that defines silence signal (lower than).
-SILENCE_LIMIT = 2 #Silence limit in seconds. The max ammount of seconds where only silence is recorded. When this time passes the recording finishes and the file is delivered.
 
 #Globals for translation
 SPANISH = "es"
 translator = Translator('<Your Client ID>', '<Your Client Secret>')
 
-
 if(__name__ == '__main__'):
+    global THRESHOLD #The threshold intensity that defines silence signal (lower than).
+    global SILENCE_LIMIT #Silence limit in seconds. The max ammount of seconds where only silence is recorded. When this time passes the recording finishes and the file is delivered.
+
+    answer = raw_input("Enter Your Threshold (Default=380): ")
+    if(answer):
+        THRESHOLD = int(answer)
+    else:
+        THRESHOLD = 380
+
+    print "Threshold Set at %s\n" % THRESHOLD
+
+    answer = raw_input("Enter Your Silence Limit (Default=2): ")
+    if(answer):
+        SILENCE_LIMIT = int(answer)
+    else:
+        SILENCE_LIMIT = 2 
+
+    print "Silence Limit Set at %s\n" % SILENCE_LIMIT
+
     listen_for_speech()

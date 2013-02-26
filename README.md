@@ -26,6 +26,15 @@ Translator API. However, the redirect URI field is a mandatory field,
 and you must provide a URI to obtain the access code. A description is
 optional.
 
+Getting the FLAC Converter
+----------------------------
+
+On Windows you will need to include the flac.exe file in the same folder as livecc.py
+
+You can download a zip of all the FLAC command line tools here: [http://sourceforge.net/projects/flac/files/flac-win/](http://sourceforge.net/projects/flac/files/flac-win/)
+
+When you unzip the file you will find flac.exe in the /bin folder.
+
 Contributing
 ------------
 
